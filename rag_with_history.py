@@ -72,8 +72,8 @@ def ask_rag(request: QueryRequest):
     )
 
     # Append new exchange to history
-    history.append({"role": "user", "content": request.question})
-    history.append({"role": "assistant", "content": answer})
+    #history.append({"role": "user", "content": request.question})
+    #history.append({"role": "assistant", "content": answer})
 
     return {"answer": answer, "session_id": session_id}
 

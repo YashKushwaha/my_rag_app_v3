@@ -6,16 +6,18 @@
 # - all-distilroberta-v1
 embedding:
   provider: local
-  model_name: all-mpnet-base-v2  
+  model_name: all-MiniLM-L6-v2 
 
 llm:
   provider: ollama
   ollama:
     model: phi4
     url: http://localhost:11434/api/generate
-
+  openai:
+    model: o4-mini
+    api_key_env: OPENAI_API_KEY
 vector_store:
-  vector_store_to_use: faiss
+  vector_store_to_use: pinecone
   faiss:
     folder_name: stored_vectors
     index_file: faiss_index.index
