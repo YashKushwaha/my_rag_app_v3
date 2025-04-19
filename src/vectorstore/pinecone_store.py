@@ -25,10 +25,6 @@ class PineconeVectorStore:
         self.index = self.pc.Index(self.index_name)
 
     def save(self, embeddings, texts):
-        # Save embeddings + associated metadata (text) into Pinecone
-        #existing = self.index.fetch(ids=ids)
-        #existing_ids = set(existing['vectors'].keys())
-
         to_upsert = [
             (str(i), embedding, {'text': text})
             for i, (embedding, text) in enumerate(zip(embeddings, texts))

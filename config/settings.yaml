@@ -1,6 +1,12 @@
+# Available embedding model options that run locally:
+# - all-MiniLM-L6-v2       (small + fast)
+# - all-mpnet-base-v2      (more accurate)
+# - paraphrase-MiniLM-L12-v2
+# - multi-qa-MiniLM-L6-cos-v1  (QA-focused)
+# - all-distilroberta-v1
 embedding:
   provider: local
-  model_name: all-MiniLM-L6-v2    
+  model_name: all-mpnet-base-v2  
 
 llm:
   provider: ollama
@@ -9,7 +15,7 @@ llm:
     url: http://localhost:11434/api/generate
 
 vector_store:
-  vector_store_to_use: pinecone
+  vector_store_to_use: faiss
   faiss:
     folder_name: stored_vectors
     index_file: faiss_index.index
