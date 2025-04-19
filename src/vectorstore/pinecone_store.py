@@ -4,17 +4,14 @@ import numpy as np
 
 class PineconeVectorStore:
     def __init__(self, pinecone_config):
-        #pinecone_config = config['vectorstore']['pinecone']
         api_key = os.environ[pinecone_config['api_key_env']]
-
         self.index_name = pinecone_config['index_name']
         self.dimension = pinecone_config.get('dimension', 384)  # defaulting for MiniLM
         self.metric = pinecone_config.get('metric', 'cosine')
         self.cloud = pinecone_config.get('cloud', 'aws')
         self.region = pinecone_config.get('region', 'us-east-1')
 
-
-        self.pc = Pinecone.init(api_key=api_key)
+        self.pc = Pinecone(api_key=api_key)
 
         # Create index if it doesn't exist
         if not self.pc.has_index(self.index_name):
@@ -29,6 +26,9 @@ class PineconeVectorStore:
 
     def save(self, embeddings, texts):
         # Save embeddings + associated metadata (text) into Pinecone
+        #existing = self.index.fetch(ids=ids)
+        #existing_ids = set(existing['vectors'].keys())
+
         to_upsert = [
             (str(i), embedding, {'text': text})
             for i, (embedding, text) in enumerate(zip(embeddings, texts))

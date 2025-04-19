@@ -30,14 +30,15 @@ def run_indexing_pipeline_old(config):
     return True
 
 def run_indexing_pipeline(config):
-    print("Running indexing pipeline...")
+
+
     data_path = os.path.join(os.getcwd(), config['documents']['source_dir'])
     docs = ingest_documents(data_path, chunk_size=500, chunk_overlap=100)
     texts = [doc.page_content for doc in docs]
 
     embedder_model = load_embedder(config['embedding'])
     embeddings = embedder_model.embed(texts)
-
+    print('Settings for vector store -> ', config['vector_store'])
     vector_store = load_vector_store(config['vector_store'])
     vector_store.save(embeddings, texts)
     print(f"Saved {len(embeddings)} embeddings to vector store.")

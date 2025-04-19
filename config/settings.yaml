@@ -9,14 +9,14 @@ llm:
     url: http://localhost:11434/api/generate
 
 vector_store:
-  vector_store_to_use: faiss
+  vector_store_to_use: pinecone
   faiss:
     folder_name: stored_vectors
     index_file: faiss_index.index
     texts_file: faiss_texts.pkl
   pinecone:
     api_key_env: PINECONE_API_KEY  # name of the environment variable
-    index_name: my_rag_app_v2
+    index_name: my-rag-app-v2-test
 
 documents:
   source_dir: "data/documents"  # <- Path to the folder with .txt, .pdf, etc.
