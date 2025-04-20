@@ -1,0 +1,5 @@
+llm:
+  provider: ollama
+  ollama:
+    model: sd3
+    url: http://localhost:11434/api/generate

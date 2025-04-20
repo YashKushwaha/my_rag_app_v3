@@ -2,7 +2,7 @@ from .base import BaseLLM
 import requests
 from openai import OpenAI
 import os
-class OllamaModel(BaseLLM):
+class LlavaModel(BaseLLM):
     def __init__(self, config):
         self.model = config['model']
         self.url = config['url']
@@ -10,6 +10,19 @@ class OllamaModel(BaseLLM):
     def generate(self, prompt: str, image) -> str:
 
         payload = {"model": self.model, "prompt": prompt, "stream" : False, "images": [image]}   
+        #print(payload)
+        
+        response = requests.post(self.url, json=payload)
+        return response.json()['response']
+
+class OllamaModel(BaseLLM):
+    def __init__(self, config):
+        self.model = config['model']
+        self.url = config['url']
+
+    def generate(self, prompt: str, image) -> str:
+
+        payload = {"model": self.model, "prompt": prompt, "stream" : False }   
         #print(payload)
         
         response = requests.post(self.url, json=payload)

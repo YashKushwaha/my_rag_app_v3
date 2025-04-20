@@ -13,7 +13,7 @@ embedding:
     model_name: llava
 
 llm:
-  provider: ollama
+  provider: llava
   ollama:
     model: llava1.5
     url: http://localhost:11434/api/generate
