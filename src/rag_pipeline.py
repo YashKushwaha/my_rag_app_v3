@@ -36,3 +36,12 @@ def generate_answer_with_image(question, image_path, text_embedder, image_embedd
     prompt = f"{system_prompt}\nUSER:<image_embeddings>\n{question}\nASSISTANT:"
     response = llm.generate(image_embeddings=image_embeddings, prompt=prompt)
     return response
+
+def explain_image_pipeline(question, image_embedder, image_path, llm):
+    image = image_embedder.embed(image_path)    
+    system_prompt = 'You are a helpful assistant'
+    #prompt = f'{system_prompt}\nUSER:<image>\n{question}\nASSISTANT'
+    prompt = question  
+
+    response = llm.generate(prompt, image)
+    return response

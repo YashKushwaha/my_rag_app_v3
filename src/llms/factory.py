@@ -7,10 +7,13 @@ class OllamaModel(BaseLLM):
         self.model = config['model']
         self.url = config['url']
 
-    def generate(self, prompt: str) -> str:
-        response = requests.post(self.url, json={"model": self.model, "prompt": prompt, "stream" : False})
-        response.raise_for_status()
-        return response.json().get("response")
+    def generate(self, prompt: str, image) -> str:
+
+        payload = {"model": self.model, "prompt": prompt, "stream" : False, "images": [image]}   
+        #print(payload)
+        
+        response = requests.post(self.url, json=payload)
+        return response.json()['response']
 
 class OpenAIModel(BaseLLM):
     def __init__(self, config):

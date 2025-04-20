@@ -14,11 +14,16 @@ import sys
 import warnings
 warnings.filterwarnings("ignore")
 
-os.chdir(Path(os.path.dirname(__file__)).resolve())
+
+ROOT_DIR = Path(os.path.dirname(__file__)).resolve()
+os.chdir(ROOT_DIR)
 print('Working directory set as ', os.getcwd())
 
 # Load configuration
-config = get_config()
+print(Path(__file__).resolve().parents[1] )
+config_file = os.path.join(ROOT_DIR , "config", "settings.yaml")
+config = get_config(config_file)
+
 
 # Initialize FastAPI app
 app = FastAPI(title="Flexible RAG App")

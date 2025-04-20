@@ -8,7 +8,7 @@ embedding:
   text:
     provider: local
     model_name: all-MiniLM-L6-v2
-  images:
+  image:
     provider: local
     model_name: llava
 
