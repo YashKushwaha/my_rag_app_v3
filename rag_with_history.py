@@ -78,4 +78,5 @@ def ask_rag(request: QueryRequest):
     return {"answer": answer, "session_id": session_id}
 
 if __name__ == "__main__":
-    uvicorn.run("rag_with_history:app", host="0.0.0.0", port=8000, reload=True)
+    app_path = Path(__file__).resolve().with_suffix('').name  # gets filename without .py
+    uvicorn.run(f"{app_path}:app", host="0.0.0.0", port=8000, reload=True)

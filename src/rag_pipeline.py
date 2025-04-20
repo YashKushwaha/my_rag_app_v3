@@ -28,3 +28,11 @@ def generate_answer_with_history(question, embedder, vectorstore, llm, chat_hist
     )
     response = llm.generate(prompt)
     return response
+
+def generate_answer_with_image(question, image_path, text_embedder, image_embedder,vectorstore, llm, chat_history=None):
+    system_prompt = 'You are a helpful assistant'
+    image_embeddings = image_embedder(image_path)
+    
+    prompt = f"{system_prompt}\nUSER:<image_embeddings>\n{question}\nASSISTANT:"
+    response = llm.generate(image_embeddings=image_embeddings, prompt=prompt)
+    return response
