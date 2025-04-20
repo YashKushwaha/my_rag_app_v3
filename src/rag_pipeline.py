@@ -44,3 +44,4 @@ def explain_image_pipeline(question, image_embedder, image_path, llm):
 
     response = llm.generate(prompt, image)
     return response
+
