@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 from typing import List, Dict, Optional
 import uuid
 from src.config_loader import get_config
-from src.embedder import load_embedder
+from src.embedder import load_text_embedder
 from src.vectorstore import load_vector_store
 from src.rag_pipeline import generate_answer, generate_answer_with_history
 from src.llms import load_llm
@@ -37,7 +37,7 @@ class QueryRequest(BaseModel):
 
 @app.on_event("startup")
 async def startup_event():
-    app.state.embedder = load_embedder(config['embedding'])
+    app.state.embedder = load_text_embedder(config['embedding'])
     app.state.vectorstore = load_vector_store(config['vector_store'])
     app.state.llm = load_llm(config['llm'])
     app.state.chat_histories = {}

@@ -5,7 +5,7 @@ import uvicorn
 from src.config_loader import get_config
 from src.embedder import load_text_embedder
 from src.vectorstore import load_vector_store
-from src.rag_pipeline import generate_answer
+from src.rag_pipeline import generate_answer_with_filtering
 from src.llms import load_llm
 
 from pathlib import Path
@@ -21,7 +21,7 @@ print('Working directory set as ', os.getcwd())
 
 # Load configuration
 print(Path(__file__).resolve().parents[1] )
-config_file = os.path.join(ROOT_DIR , "config", "settings.yaml")
+config_file = os.path.join(ROOT_DIR , "config", "rag_with_metadata_filtering.yaml")
 config = get_config(config_file)
 
 
@@ -45,7 +45,7 @@ def ask_rag(request: QueryRequest):
     vectorstore = app.state.vectorstore
     llm = app.state.llm
 
-    answer = generate_answer(
+    answer = generate_answer_with_filtering(
         question=request.question,
         embedder=embedder,
         vectorstore=vectorstore,

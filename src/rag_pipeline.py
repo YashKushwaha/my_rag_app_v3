@@ -1,3 +1,5 @@
+from src.llms import extract_tags_from_text
+
 def generate_answer(question, embedder, vectorstore, llm):
     query_embedding = embedder.embed(question)
     relevant_chunks = vectorstore.retrieve(query_embedding)
@@ -7,6 +9,32 @@ def generate_answer(question, embedder, vectorstore, llm):
     prompt = f"Answer the question using the context below:\nContext:\n{context}\n\nQuestion: {question}"
     response = llm.generate(prompt)
     return response
+
+def generate_answer_with_filtering(question, embedder, vectorstore, llm): 
+    query_embedding = embedder.embed(question)
+    filter_dict = {"tags": extract_tags_from_text(question, llm) }
+    print(filter_dict)
+
+    relevant_chunks_with_no_filtering = vectorstore.retrieve(query_embedding)
+    relevant_chunks = vectorstore.retrieve(query_embedding, filter=filter_dict)
+    
+    #
+
+    context = "\n".join(
+        [f"Source: {doc['metadata'].get('source_file', 'unknown')}\n{doc['text']}" for doc in relevant_chunks]
+    )
+
+    context_wo_filtering = "\n".join(
+        [f"Source: {doc['metadata'].get('source_file', 'unknown')}\n{doc['text']}" for doc in relevant_chunks_with_no_filtering]
+    )
+    if context == context_wo_filtering:
+        print('No advantage to filtering')
+
+    print(5*'==')
+    prompt = f"Answer the question using the context below:\nContext:\n{context}\n\nQuestion: {question}"
+    response = llm.generate(prompt)
+    return response
+
 
 def format_history(history):
     return "\n".join([f"{h['role'].capitalize()}: {h['content']}" for h in history])

@@ -36,8 +36,6 @@ class JsonDebugVectorStore:
         with open(self.metadata_path, "w", encoding="utf-8") as f:
             json.dump(metadata_data, f, indent=2)
 
-        print(f"[DEBUG] Vectorstore index saved to: {self.index_path}")
-        print(f"[DEBUG] Metadata saved to: {self.metadata_path}")
 
     def load(self):
         if not (os.path.exists(self.index_path) and os.path.exists(self.metadata_path)):

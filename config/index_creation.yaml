@@ -5,20 +5,34 @@ chunking_strategy:
   chunk_size: 500
   chunk_overlap: 100
 
-# Available strategies -> simple, metadata_aware
+# Available strategies -> simple, metadata_aware, metadata_aware_with_tags
 
-indexing_strategy: metadata_aware
+indexing_strategy: metadata_aware_with_tags
 
 embedding:
     provider: local
     model_name: all-MiniLM-L6-v2 
-  
+
+llm:
+  provider: ollama
+  ollama:
+    model: phi4
+    url: http://localhost:11434/api/generate
+  llava:
+    model: llava1.5
+    url: http://localhost:11434/api/generate
+
+# Options 
 vector_store:
-  vector_store_to_use: json_debug
+  vector_store_to_use: faiss_with_filtering
   faiss:
     folder_name: stored_vectors
     index_file: faiss_index.index
-    texts_file: faiss_texts.pkl
+    texts_file: faiss_texts.pkl    
+  faiss_with_filtering:
+    folder_name: stored_vectors
+    index_file: faiss_index_with_metadata.index
+    texts_file: faiss_texts_with_metadata.pkl  
   pinecone:
     api_key_env: PINECONE_API_KEY  # name of the environment variable
     index_name: my-rag-app-v2-test
