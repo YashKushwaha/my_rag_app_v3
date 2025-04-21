@@ -1,8 +1,10 @@
+from .base import BaseVectorStore
+
 from pinecone import Pinecone, ServerlessSpec
 import os
 import numpy as np
 
-class PineconeVectorStore:
+class PineconeVectorStore(BaseVectorStore):
     def __init__(self, pinecone_config):
         api_key = os.environ[pinecone_config['api_key_env']]
         self.index_name = pinecone_config['index_name']

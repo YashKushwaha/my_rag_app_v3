@@ -7,6 +7,7 @@ from src.logger_config import setup_logger
 from .base_indexer import BaseIndexer
 
 logger = setup_logger(__name__)
+
 class MetadataAwareTextIndexer(BaseIndexer):
     def __init__(self, config):
         self.config = config
