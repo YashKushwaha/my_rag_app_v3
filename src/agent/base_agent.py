@@ -6,4 +6,4 @@ class Agent:
 
     def run(self, user_input: str) -> str:
         # Standard chat -> tool invocation -> tool response -> final LLM response loop
-        ...
+        return user_input

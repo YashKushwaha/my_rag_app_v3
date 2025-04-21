@@ -40,6 +40,17 @@ class OpenAIModel(BaseLLM):
         )
         return response.choices[0].message['content'].strip()
 
+class DummyLLM(BaseLLM):
+    def __init__(self, config=None):
+        self.model = 'Dummy' or config['model']
+        self.url = 'LocalHost' or config['url']
+
+    def generate(self, prompt: str) -> str:
+        #payload = {"model": self.model, "prompt": prompt, "stream" : False }        
+        #response = requests.post(self.url, json=payload)
+        return prompt
+
+
 def load_llm(config):
     provider = config["provider"]
     model_config = config[provider]
