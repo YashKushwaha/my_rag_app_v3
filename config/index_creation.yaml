@@ -14,7 +14,7 @@ embedding:
     model_name: all-MiniLM-L6-v2 
   
 vector_store:
-  vector_store_to_use: faiss
+  vector_store_to_use: json_debug
   faiss:
     folder_name: stored_vectors
     index_file: faiss_index.index
@@ -22,3 +22,5 @@ vector_store:
   pinecone:
     api_key_env: PINECONE_API_KEY  # name of the environment variable
     index_name: my-rag-app-v2-test
+  json_debug:
+    folder_name: stored_vectors
