@@ -35,7 +35,7 @@ class RemoteAPIEmbedder:
         return response.json()["embeddings"]
 
 
-def load_embedder(config: dict):
+def load_text_embedder(config: dict):
     provider = config.get("provider")
 
     if provider == "local":

@@ -1,2 +1,24 @@
 documents:
   source_dir: data/documents
+
+chunking_strategy:
+  chunk_size: 500
+  chunk_overlap: 100
+
+# Available strategies -> simple, metadata_aware
+
+indexing_strategy: metadata_aware
+
+embedding:
+    provider: local
+    model_name: all-MiniLM-L6-v2 
+  
+vector_store:
+  vector_store_to_use: faiss
+  faiss:
+    folder_name: stored_vectors
+    index_file: faiss_index.index
+    texts_file: faiss_texts.pkl
+  pinecone:
+    api_key_env: PINECONE_API_KEY  # name of the environment variable
+    index_name: my-rag-app-v2-test

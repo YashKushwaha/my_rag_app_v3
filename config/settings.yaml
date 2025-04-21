@@ -8,7 +8,7 @@ embedding:
   provider: local
   model_name: all-MiniLM-L6-v2 
 
-llm:
+llm:ssssssssssssss
   provider: ollama
   ollama:
     model: phi4
@@ -16,6 +16,7 @@ llm:
   openai:
     model: o4-mini
     api_key_env: OPENAI_API_KEY
+
 vector_store:
   vector_store_to_use: pinecone
   faiss:

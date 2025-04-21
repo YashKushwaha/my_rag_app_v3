@@ -1,7 +1,9 @@
 def generate_answer(question, embedder, vectorstore, llm):
     query_embedding = embedder.embed(question)
     relevant_chunks = vectorstore.retrieve(query_embedding)
-    context = "\n".join(relevant_chunks)
+    context = "\n".join(
+        [f"Source: {doc['metadata'].get('source_file', 'unknown')}\n{doc['text']}" for doc in relevant_chunks]
+    )
     prompt = f"Answer the question using the context below:\nContext:\n{context}\n\nQuestion: {question}"
     response = llm.generate(prompt)
     return response
@@ -12,7 +14,10 @@ def format_history(history):
 def generate_answer_with_history(question, embedder, vectorstore, llm, chat_history=None):
     query_embedding = embedder.embed(question)
     relevant_chunks = vectorstore.retrieve(query_embedding)
-    context = "\n".join(relevant_chunks)
+    context = "\n".join(
+        [f"Source: {doc['metadata'].get('source_file', 'unknown')}\n{doc['text']}" for doc in relevant_chunks]
+    )
+
     history_text = ""
 
     if chat_history:

@@ -12,6 +12,9 @@ build/
 .vscode/
 .idea/
 
+#logging
+*.log
+
 # Virtual environments
 .env/
 .venv/
